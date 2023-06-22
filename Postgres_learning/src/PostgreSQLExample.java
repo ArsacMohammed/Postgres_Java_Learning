@@ -41,6 +41,7 @@ public class PostgreSQLExample {
             statement.close();
 
             connection.close();
+            
         } catch (SQLException e) {
             System.out.println("Connection failed. Error: " + e.getMessage());
         }

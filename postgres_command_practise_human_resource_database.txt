@@ -1,0 +1,73 @@
+Tables created :
+	regions
+	countries
+	departments 
+	employees
+	job_history
+	jobs
+	locations
+	
+select * from table_name; to show all record in the table .
+
+To find the record where salary is max in the employee table :
+	select * from employees where salary = (select max(salary) from employees); ( also same for min)
+To find the average of the salary : select ROUND(avg(salary),2) as "averge salary" from employees ;
+To find the total salary: select sum(salary) from employees ; avg for average.
+
+finding the avg,total ,min,max salary for each departments :
+	select department_id,
+	ROUND(avg(salary),2) as "averge salary",
+	ROUND(min(salary),2) as "averge salary",
+	ROUND(max(salary),2) as "averge salary",
+	ROUND(avg(salary),2) as "averge salary"
+	from employees 
+	group by department_id;
+
+
+Difference between the highest and lowest salary by job_id:
+	select job_id,
+	max(salary),
+	min(salary),max(salary)-min(salary) as difference
+	from employees 
+	group by job_id;
+
+	
+Getting  lowest and highest salary from each manager:
+	select * from employees;
+	select manager_id,
+	min(salary),max(salary)
+	from employees 
+	group by manager_id;
+
+	
+Average salary for each department with more than 10 employees:
+	select department_id,round(avg(salary),2),count(*) as employee_count from employees  group by department_id having  count(*)>10;
+
+Average salary for each post excluding programmers:
+	select job_id,round(avg(salary),2) from employees where job_id <> 'IT_PROG' group by job_id; (always use single quotes inside the query)
+
+
+Maximum salary for eachpost where salary is at or above 5000
+	select job_id,max(salary) from employees group by job_id having max(salary)>=5000;
+
+Compute 15 % of the salary of all employees:
+	select first_name ,last_name,salary,round((0.15*salary),2) as "percent"  from employees ;
+
+
+To list all the employee _id within each job_id :
+	select job_id, array_agg (employee_id) as "all employee"  from employees group by job_id ;
+
+
+Discard character from employee email :
+	select email,
+	substr(email,1,length(email)-4),
+	reverse(email),
+	reverse(substr(reverse(email),5)) as extracted_email
+	from employees;
+
+
+	
+
+
+
+
